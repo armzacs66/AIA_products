@@ -3,6 +3,7 @@ import "server-only";
 import fs from "node:fs/promises";
 import path from "node:path";
 import matter from "gray-matter";
+import type { Locale } from "./i18n";
 
 export const sections = [
   { slug: "products", title: "Products", description: "Understand core policies, health cover, and riders." },
@@ -26,16 +27,17 @@ export function isSection(value: string): value is Section {
   return sections.some((section) => section.slug === value);
 }
 
-function contentDirectory(section: Section) {
-  return path.join(process.cwd(), "content", section);
+function contentDirectory(section: Section, locale: Locale) {
+  return path.join(process.cwd(), "content", ...(locale === "th" ? ["th"] : []), section);
 }
 
-function toEntry(section: Section, filename: string, source: string): ContentEntry {
+function toEntry(section: Section, filename: string, source: string, locale: Locale): ContentEntry {
   const { data, content } = matter(source);
   const slug = path.basename(filename, ".mdx");
 
   if (typeof data.title !== "string" || data.slug !== slug) {
-    throw new Error(`Invalid frontmatter in content/${section}/${filename}: title and matching slug are required.`);
+    const directory = locale === "th" ? `content/th/${section}` : `content/${section}`;
+    throw new Error(`Invalid frontmatter in ${directory}/${filename}: title and matching slug are required.`);
   }
 
   return {
@@ -48,15 +50,16 @@ function toEntry(section: Section, filename: string, source: string): ContentEnt
   };
 }
 
-export async function getEntries(section?: Section): Promise<ContentEntry[]> {
+export async function getEntries(section?: Section, locale: Locale = "en"): Promise<ContentEntry[]> {
   const selectedSections = section ? [section] : sections.map((item) => item.slug);
   const entries = await Promise.all(
     selectedSections.map(async (item) => {
-      const files = await fs.readdir(contentDirectory(item));
+      const directory = contentDirectory(item, locale);
+      const files = await fs.readdir(directory);
       return Promise.all(
         files
           .filter((file) => file.endsWith(".mdx"))
-          .map(async (file) => toEntry(item, file, await fs.readFile(path.join(contentDirectory(item), file), "utf8"))),
+          .map(async (file) => toEntry(item, file, await fs.readFile(path.join(directory, file), "utf8"), locale)),
       );
     }),
   );
@@ -64,13 +67,13 @@ export async function getEntries(section?: Section): Promise<ContentEntry[]> {
   return entries.flat().sort((a, b) => a.title.localeCompare(b.title));
 }
 
-export async function getEntry(section: string, slug: string): Promise<ContentEntry | null> {
+export async function getEntry(section: string, slug: string, locale: Locale = "en"): Promise<ContentEntry | null> {
   if (!isSection(section) || !/^[a-z0-9-]+$/.test(slug)) return null;
 
-  const filePath = path.join(contentDirectory(section), `${slug}.mdx`);
+  const filePath = path.join(contentDirectory(section, locale), `${slug}.mdx`);
   try {
     const source = await fs.readFile(filePath, "utf8");
-    return toEntry(section, `${slug}.mdx`, source);
+    return toEntry(section, `${slug}.mdx`, source, locale);
   } catch (error) {
     if (error instanceof Error && "code" in error && error.code === "ENOENT") return null;
     throw error;
