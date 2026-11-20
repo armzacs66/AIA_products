@@ -4,6 +4,11 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getEntries, getEntry, sections } from "@/lib/content";
 
+const mdxComponents = {
+  a: ({ href, ...props }: React.ComponentProps<"a">) =>
+    href?.startsWith("/") ? <Link href={href} {...props} /> : <a href={href} {...props} />,
+};
+
 export async function generateStaticParams() {
   const entries = await getEntries();
   return entries.map(({ section, slug }) => ({ section, slug }));
@@ -36,7 +41,7 @@ export default async function EntryPage({ params }: { params: Promise<{ section:
         <div className="prose">
           <h1 className="article-title">{entry.title}</h1>
           {entry.description && <p className="article-lede">{entry.description}</p>}
-          <MDXRemote source={entry.content} />
+          <MDXRemote source={entry.content} components={mdxComponents} />
           <p className="source-note">Study aid only. Product terms and eligibility can change; verify against current official policy documents.</p>
         </div>
       </article>
