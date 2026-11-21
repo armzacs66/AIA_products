@@ -234,7 +234,7 @@ button, input { font: inherit; }
 .prose .tree { margin: 22px 0; padding: 18px 12px; border: 1px solid var(--line); background: var(--white); overflow-x: auto; }
 .prose .tree ul { list-style: none; margin: 0; padding: 26px 0 0; display: flex; justify-content: center; position: relative; }
 .prose .tree > ul { width: max-content; margin: 0 auto; padding-top: 0; }
-.prose .tree li { position: relative; margin: 0; padding: 26px 5px 0; display: flex; flex-direction: column; align-items: center; }
+.prose .tree li { position: relative; margin: 0; padding: 26px 2px 0; display: flex; flex-direction: column; align-items: center; }
 .prose .tree > ul > li { padding-top: 0; }
 .prose .tree li::before, .prose .tree li::after { content: ""; position: absolute; top: 0; right: 50%; width: 50%; height: 26px; border-top: 2px solid #9fb8a8; }
 .prose .tree li::after { right: auto; left: 50%; border-left: 2px solid #9fb8a8; }
@@ -246,15 +246,15 @@ button, input { font: inherit; }
 .prose .tree > ul > li::before, .prose .tree > ul > li::after { display: none; }
 .prose .tree li > ul::before { content: ""; position: absolute; top: 0; left: 50%; height: 26px; border-left: 2px solid #9fb8a8; }
 .prose .tree li:only-child > ul { padding-top: 26px; }
-.prose .tree-box { width: 138px; display: flex; flex-direction: column; gap: 3px; align-items: center; padding: 9px 8px; border: 1px solid #cbd9ce; background: var(--paper); color: var(--ink); font-size: 14px; line-height: 1.4; text-align: center; }
+.prose .tree-box { width: 92px; display: flex; flex-direction: column; gap: 3px; align-items: center; padding: 9px 8px; border: 1px solid #cbd9ce; background: var(--paper); color: var(--ink); font-size: 14px; line-height: 1.4; text-align: center; font-size: 13px; }
 .prose .tree-box:focus-visible { outline: 2px solid var(--green); }
 .prose .tree-box strong { display: block; background: none; }
 .prose .tree-level { display: block; color: var(--green); font-size: 11px; font-weight: 600; }
-.prose .tree-note { display: block; margin-top: 3px; color: var(--ink-soft); font-size: 12px; line-height: 1.45; }
-.prose .tree > ul > li > .tree-box { width: 170px; background: var(--green-dark); border-color: var(--green-dark); color: #fff; }
+.prose .tree-note { display: block; margin-top: 3px; color: var(--ink-soft); font-size: 11px; line-height: 1.45; }
+.prose .tree > ul > li > .tree-box { width: 160px; background: var(--green-dark); border-color: var(--green-dark); color: #fff; }
 .prose .tree > ul > li > .tree-box .tree-note { color: #d6e4dc; }
 .prose .tree > ul > li > .tree-box strong { color: #fff; }
-.prose .tree > ul > li > ul > li > .tree-box { width: 170px; background: var(--mint); border-color: var(--green); }
+.prose .tree > ul > li > ul > li > .tree-box { width: 160px; background: var(--mint); border-color: var(--green); }
 .prose .tree > ul > li > ul > li > ul > li > .tree-box { background: #eef4d6; }
 .prose .tree > ul > li > ul > li > ul > li > ul > li > .tree-box { background: var(--paper); }
 
@@ -264,3 +264,27 @@ button, input { font: inherit; }
 .prose .tree ul.stack > li::after { display: none; }
 .prose .tree ul.stack > li::before { display: block; top: 0; left: 50%; right: auto; width: 0; height: 12px; border: 0; border-left: 2px solid #9fb8a8; border-radius: 0; }
 .prose .tree ul.stack > li:first-child::before { display: none; }
+
+/* timeline: phases along a time axis, cases under each */
+.prose .timeline { margin: 22px 0; padding: 16px; border: 1px solid var(--line); background: var(--white); }
+.prose .timeline figcaption { margin-bottom: 16px; color: var(--ink); font-size: 15px; font-weight: 600; line-height: 1.6; }
+.prose .timeline ol { margin: 0; padding: 0; list-style: none; display: flex; gap: 0; }
+.prose .phase { position: relative; margin: 0; padding: 22px 12px 0 0; flex: 1 1 0; min-width: 0; }
+.prose .phase + .phase { padding-left: 12px; }
+.prose .phase-from { position: absolute; top: 0; left: 0; padding: 1px 8px 1px 0; color: var(--ink); font-size: 13px; font-weight: 700; }
+.prose .phase + .phase .phase-from { left: 12px; }
+.prose .phase-from::after { content: ""; position: absolute; left: -2px; top: 19px; width: 12px; height: 12px; border-radius: 50%; background: currentColor; border: 2px solid var(--white); }
+.prose .phase + .phase .phase-from::after { left: -14px; }
+.prose .phase-bar { margin-top: 2px; padding: 12px 12px 10px; display: flex; flex-direction: column; gap: 2px; color: var(--ink); background: var(--mint); border-top: 6px solid var(--green); }
+.prose .phase-wait .phase-bar { background: #fbf1d6; border-top-color: #c9a227; }
+.prose .phase-bar strong { background: none; font-size: 17px; }
+.prose .phase-bar span { color: var(--ink-soft); font-size: 13px; line-height: 1.5; }
+.prose .phase-cases { margin-top: 10px; display: grid; gap: 10px; }
+.prose .case { padding: 10px 10px 12px; display: flex; flex-direction: column; gap: 3px; border: 1px solid #cbd9ce; background: var(--paper); color: var(--ink); font-size: 15px; }
+.prose .case strong { background: none; }
+.prose .case-pay { color: var(--green-dark); font-size: 20px; }
+.prose .phase-wait .case-pay { color: #8a6a00; }
+@media (max-width: 600px) { .prose .timeline ol { flex-direction: column; } .prose .phase, .prose .phase + .phase { padding: 22px 0 0; } .prose .phase + .phase .phase-from { left: 0; } .prose .phase + .phase .phase-from::after { left: -2px; } }
+
+/* wide chart: on desktop let the tree span the whole article container, over the sidebar gutter */
+@media (min-width: 1100px) { .prose .tree { position: relative; z-index: 3; width: 1050px; margin-left: -245px; } }

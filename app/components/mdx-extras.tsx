@@ -44,6 +44,37 @@ export function Flow({ title, children }: { title?: string; children: ReactNode 
   );
 }
 
+/** Timeline: <Timeline><Phase from label range tone><Case icon label pay note /></Phase></Timeline> */
+export function Timeline({ title, children }: { title?: string; children: ReactNode }) {
+  return (
+    <figure className="timeline">
+      {title && <figcaption>{title}</figcaption>}
+      <ol>{children}</ol>
+    </figure>
+  );
+}
+
+export function Phase({ from, label, range, tone = "ok", children }: { from: string; label: string; range?: string; tone?: "wait" | "ok"; children: ReactNode }) {
+  return (
+    <li className={`phase phase-${tone}`}>
+      <span className="phase-from">{from}</span>
+      <div className="phase-bar"><strong>{label}</strong>{range && <span>{range}</span>}</div>
+      <div className="phase-cases">{children}</div>
+    </li>
+  );
+}
+
+export function Case({ icon, label, pay, note }: { icon: string; label: string; pay: string; note?: string }) {
+  return (
+    <div className="case">
+      <span aria-hidden="true" className="flow-icon">{icon}</span>
+      <strong>{label}</strong>
+      <b className="case-pay">{pay}</b>
+      {note && <span className="flow-note">{note}</span>}
+    </div>
+  );
+}
+
 /** Hierarchy: <Tree><Node icon label level note><Node .../></Node></Tree> */
 export function Tree({ children }: { children: ReactNode }) {
   return (
