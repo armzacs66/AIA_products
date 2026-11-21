@@ -7,13 +7,13 @@ import { localePath, messages, type Locale } from "@/lib/i18n";
 import { HeaderSearch } from "./header-search";
 
 function getLocale(pathname: string): Locale {
-  const route = pathname.replace(/^\/AIA_products(?=\/|$)/, "") || "/";
+  const route = pathname.replace(/^\/AIA_training(?=\/|$)/, "") || "/";
   return route === "/th" || route.startsWith("/th/") ? "th" : "en";
 }
 
 export function SiteHeader() {
   const pathname = usePathname() ?? "/";
-  const route = pathname.replace(/^\/AIA_products(?=\/|$)/, "") || "/";
+  const route = pathname.replace(/^\/AIA_training(?=\/|$)/, "") || "/";
   const locale = getLocale(pathname);
   const copy = messages[locale];
   const isThai = locale === "th";
