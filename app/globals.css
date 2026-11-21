@@ -168,3 +168,31 @@ button, input { font: inherit; }
   .prose th, .prose td { padding: 8px; }
   .site-footer { align-items: flex-start; flex-direction: column; gap: 8px; }
 }
+
+/* study aids: tooltips, callouts, flows, split bars */
+.prose .tip { position: relative; border-bottom: 1.5px dotted var(--green); color: var(--ink); cursor: help; }
+.prose .tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+.prose .tip-body { position: absolute; z-index: 5; bottom: calc(100% + 8px); left: 50%; width: max-content; max-width: min(280px, 80vw); padding: 9px 12px; transform: translateX(-50%); background: var(--green-dark); color: #fff; font-size: 12px; line-height: 1.6; font-weight: 400; opacity: 0; pointer-events: none; transition: opacity .15s ease; }
+.prose .tip:hover .tip-body, .prose .tip:focus .tip-body { opacity: 1; }
+.prose .callout { margin: 18px 0; padding: 14px 16px; display: flex; gap: 12px; border-left: 4px solid var(--green); background: var(--mint); }
+.prose .callout > div > :first-child { margin-top: 0; }
+.prose .callout > div > :last-child { margin-bottom: 0; }
+.prose .callout-warn, .prose .callout-trap { border-color: #c0483a; background: #fbeee9; }
+.prose .callout-tip { border-color: #b7a43c; background: #f7f2d8; }
+.prose .callout-icon { font-size: 18px; line-height: 1.6; }
+.prose .flow { margin: 22px 0; padding: 16px; border: 1px solid var(--line); background: var(--white); }
+.prose .flow figcaption { margin-bottom: 12px; color: var(--ink); font-size: 13px; font-weight: 600; }
+.prose .flow ol { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 10px 24px; }
+.prose .flow li { position: relative; margin: 0; padding: 10px 8px; min-width: 84px; flex: 1 1 84px; display: flex; flex-direction: column; gap: 4px; align-items: center; text-align: center; border: 1px solid #cbd9ce; background: var(--paper); font-size: 12px; color: var(--ink); }
+.prose .flow li:not(:last-child)::after { content: "›"; position: absolute; right: -19px; top: 50%; transform: translateY(-50%); color: var(--green); font-size: 22px; }
+.prose .flow-icon { font-size: 22px; }
+.prose .flow-note { color: var(--ink-soft); font-size: 11px; line-height: 1.5; }
+.prose .flow li:focus-visible { outline: 2px solid var(--green); }
+.prose .split { margin: 20px 0; }
+.prose .split-bar { display: flex; height: 38px; overflow: hidden; }
+.prose .split-seg { display: grid; place-items: center; min-width: 28px; color: #fff; font-size: 12px; font-weight: 600; }
+.prose .split ul { margin: 10px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 12px; }
+.prose .split li { margin: 0; padding: 0; }
+.prose .dot { display: inline-block; width: 10px; height: 10px; margin-right: 6px; }
+.prose .s0 { background: #2f6654; } .prose .s1 { background: #6f9a4d; } .prose .s2 { background: #b7a43c; } .prose .s3 { background: #8a6f9e; }
+@media (prefers-reduced-motion: reduce) { .prose .tip-body { transition: none; } }

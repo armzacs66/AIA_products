@@ -3,10 +3,17 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
+import { Callout, Flow, Seg, Split, Step, Tip } from "./mdx-extras";
 import { getEntry } from "@/lib/content";
 import { localePath, messages, sectionMessages, type Locale } from "@/lib/i18n";
 
 const mdxComponents = (locale: Locale) => ({
+  Callout,
+  Flow,
+  Seg,
+  Split,
+  Step,
+  Tip,
   a: ({ href, ...props }: React.ComponentProps<"a">) =>
     href?.startsWith("/") ? <Link href={href} {...props} /> : <a href={href} {...props} />,
   table: ({ children, ...props }: React.ComponentProps<"table">) => (
