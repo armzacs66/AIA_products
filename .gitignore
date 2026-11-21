@@ -5,3 +5,7 @@ coverage/
 *.tsbuildinfo
 .env*
 !.env.example
+
+# local training media (large audio, personal screenshots)
+Contents/
+study-notes/transcripts/

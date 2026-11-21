@@ -1,8 +1,11 @@
 import type { NextConfig } from "next";
 
+const basePath = process.env.GITHUB_PAGES === "true" ? "/AIA_products" : "";
+
 const nextConfig: NextConfig = {
+  env: { NEXT_PUBLIC_BASE_PATH: basePath },
   output: "export",
-  basePath: process.env.GITHUB_PAGES === "true" ? "/AIA_products" : "",
+  basePath,
   trailingSlash: true,
   turbopack: { root: process.cwd() },
 };
