@@ -35,7 +35,10 @@ export function SiteHeader() {
         <Link href={localePath(locale, "/exam")}>{copy.navExam}</Link>
         <Link href={localePath(locale, "/guides")}>{copy.navGuides}</Link>
         <Link href="/quiz">ควิซ</Link>
-        <Link className="language-toggle" href={switchPath} aria-label={copy.switchLanguage}>{copy.languageName}</Link>
+        <Link href="/search">ค้นหา</Link>
+        {!/^\/(quiz|search)(\/|$)/.test(route) && (
+          <Link className="language-toggle" href={switchPath} aria-label={copy.switchLanguage}>{copy.languageName}</Link>
+        )}
       </nav>
     </header>
   );
