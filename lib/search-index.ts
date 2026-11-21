@@ -1,0 +1,33 @@
+import "server-only";
+
+import quiz from "@/content/quiz/questions.json";
+import type { Doc } from "@/app/components/search-utils";
+import { getEntries } from "./content";
+
+/** Drop MDX tags but keep the readable attribute text (labels, notes, tooltip text). */
+function toPlain(src: string): string {
+  return src
+    .replace(/<[^>]+>/g, (tag) =>
+      [...tag.matchAll(/(?:label|note|text|title)="([^"]*)"/g)].map((m) => m[1]).join(" ") + " ",
+    )
+    .replace(/^\s*\|?[\s:|-]+\|[\s:|-]*$/gm, " ")
+    .replace(/[#*`|>]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+export async function getSearchDocs(): Promise<Doc[]> {
+  const [en, th] = await Promise.all([getEntries(undefined, "en"), getEntries(undefined, "th")]);
+  return [
+    ...th.map((e) => ({ kind: "page" as const, locale: "th" as const, href: `/th/${e.section}/${e.slug}`, title: e.title, tag: e.section, text: toPlain(`${e.description ?? ""} ${e.content}`) })),
+    ...en.map((e) => ({ kind: "page" as const, locale: "en" as const, href: `/${e.section}/${e.slug}`, title: e.title, tag: e.section, text: toPlain(`${e.description ?? ""} ${e.content}`) })),
+    ...quiz.map((q) => ({
+      kind: "quiz" as const,
+      locale: "th" as const,
+      href: "/quiz",
+      title: q.q,
+      tag: "quiz",
+      text: toPlain(`เฉลย: ${q.choices[q.answer]} ${q.explain}`),
+    })),
+  ];
+}
