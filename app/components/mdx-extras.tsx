@@ -53,7 +53,8 @@ export function Tree({ children }: { children: ReactNode }) {
   );
 }
 
-export function Node({ icon, label, note, level, children }: { icon: string; label: string; note?: string; level?: string; children?: ReactNode }) {
+/** stack="y" lists the children vertically under the parent instead of side by side (keeps wide trees narrow). */
+export function Node({ icon, label, note, level, stack, children }: { icon: string; label: string; note?: string; level?: string; stack?: string; children?: ReactNode }) {
   return (
     <li>
       <div className="tree-box" tabIndex={note ? 0 : undefined}>
@@ -64,7 +65,7 @@ export function Node({ icon, label, note, level, children }: { icon: string; lab
           {note && <span className="tree-note">{note}</span>}
         </span>
       </div>
-      {children && <ul>{children}</ul>}
+      {children && <ul className={stack ? "stack" : undefined}>{children}</ul>}
     </li>
   );
 }
