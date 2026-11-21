@@ -44,6 +44,31 @@ export function Flow({ title, children }: { title?: string; children: ReactNode 
   );
 }
 
+/** Hierarchy: <Tree><Node icon label level note><Node .../></Node></Tree> */
+export function Tree({ children }: { children: ReactNode }) {
+  return (
+    <figure className="tree">
+      <ul>{children}</ul>
+    </figure>
+  );
+}
+
+export function Node({ icon, label, note, level, children }: { icon: string; label: string; note?: string; level?: string; children?: ReactNode }) {
+  return (
+    <li>
+      <div className="tree-box" tabIndex={note ? 0 : undefined}>
+        <span aria-hidden="true" className="flow-icon">{icon}</span>
+        <span>
+          {level && <span className="tree-level">{level}</span>}
+          <strong>{label}</strong>
+          {note && <span className="tree-note">{note}</span>}
+        </span>
+      </div>
+      {children && <ul>{children}</ul>}
+    </li>
+  );
+}
+
 /** Proportion bar: <Split unit=" ข้อ"><Seg label="..." value="20" /></Split> */
 export function Seg(_: { label: string; value: string }) {
   return null; // data holder, rendered by Split
