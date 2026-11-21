@@ -211,3 +211,20 @@ button, input { font: inherit; }
 .search-list strong { color: var(--ink); font-size: 18px; line-height: 1.5; }
 .search-snippet { color: var(--ink-soft); font-size: 15px; line-height: 1.7; }
 .search-list mark { padding: 0 2px; background: var(--lime); color: var(--ink); font-weight: 700; }
+
+/* header search with suggestions */
+.header-search { position: relative; flex: 1 1 200px; max-width: 320px; margin: 0 24px; }
+.header-search-box { height: 40px; display: flex; gap: 8px; align-items: center; padding: 0 12px; border: 1px solid #cbd9ce; border-radius: 999px; background: var(--white); }
+.header-search-box:focus-within { border-color: var(--green); box-shadow: 0 0 0 3px rgba(47,102,84,.15); }
+.header-search-box svg { width: 16px; height: 16px; stroke: #668075; stroke-width: 1.6; flex: none; }
+.header-search-box input { min-width: 0; width: 100%; border: 0; outline: 0; background: transparent; color: var(--ink); font-size: 15px; }
+.header-search-list { position: absolute; z-index: 20; top: 46px; left: 0; width: min(440px, 92vw); margin: 0; padding: 0; list-style: none; max-height: 70vh; overflow-y: auto; border: 1px solid var(--line); background: var(--white); box-shadow: 0 18px 38px rgba(31,54,43,.16); }
+.header-search-list li { margin: 0; }
+.header-search-list button { width: 100%; display: grid; gap: 2px; padding: 11px 14px; border: 0; border-bottom: 1px solid var(--line); background: transparent; text-align: left; color: var(--ink); cursor: pointer; }
+.header-search-list button:hover, .header-search-list button.on { background: var(--mint); }
+.header-search-list strong { font-size: 15px; line-height: 1.45; }
+.header-search-list .search-snippet { font-size: 13px; line-height: 1.55; }
+.header-search-list mark { padding: 0 2px; background: var(--lime); color: var(--ink); font-weight: 700; }
+.header-search-msg { padding: 14px; color: var(--muted); font-size: 14px; }
+.header-search-all button { color: var(--green); font-size: 14px; text-align: center; border-bottom: 0; }
+@media (max-width: 600px) { .header-search { width: 100%; max-width: none; margin: 0; flex: none; } .header-search-list { width: 100%; } }
