@@ -228,3 +228,4 @@ button, input { font: inherit; }
 .header-search-msg { padding: 14px; color: var(--muted); font-size: 14px; }
 .header-search-all button { color: var(--green); font-size: 14px; text-align: center; border-bottom: 0; }
 @media (max-width: 600px) { .header-search { width: 100%; max-width: none; margin: 0; flex: none; } .header-search-list { width: 100%; } }
+.prose .flow strong, .prose th strong { background: none; }
